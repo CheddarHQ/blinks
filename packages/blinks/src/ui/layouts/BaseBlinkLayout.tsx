@@ -38,7 +38,9 @@ type InputProps = BaseInputProps;
 
 export interface InnerLayoutProps {
   stylePreset?: StylePreset;
-  image?: string;
+  // image?: string;
+  media?: string,
+  mediaType?: string,
   error?: string | null;
   success?: string | null;
   websiteUrl?: string | null;
@@ -185,7 +187,9 @@ export const BaseBlinkLayout = ({
   stylePreset = 'default',
   title,
   description,
-  image,
+  // image,
+  media,
+  mediaType = 'video',
   websiteUrl,
   websiteText,
   securityState,
@@ -201,18 +205,39 @@ export const BaseBlinkLayout = ({
   return (
     <div className={clsx('blink', themeClassMap[stylePreset])}>
       <div className="border-stroke-primary bg-bg-primary shadow-action w-full cursor-default overflow-hidden rounded-2xl border">
-        {image && (
+        {/* {image && ( */}
+          {media && (
           <Linkable
             url={websiteUrl}
             className="block max-h-[100cqw] overflow-y-hidden px-5 pt-5"
           >
-            <img
+            {/* <img
               className={clsx(
                 'aspect-auto w-full rounded-xl object-cover object-center',
               )}
               src={image}
               alt="action-image"
-            />
+            /> */}
+            {mediaType == 'video' ? (
+              <video
+                className={clsx(
+                  'aspect-auto w-full rounded-xl object-cover object-center',
+                )}
+                src={media}
+                controls
+                autoPlay
+              >
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img
+                className={clsx(
+                  'aspect-auto w-full rounded-xl object-cover object-center',
+                )}
+                src={media}
+                alt="action-image"
+              />
+            )}
           </Linkable>
         )}
         <div className="flex flex-col p-5">

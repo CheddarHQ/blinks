@@ -29,15 +29,29 @@ export function proxify(url: string): URL {
   return proxifiedUrl;
 }
 
-export function proxifyImage(url: string): URL {
+export function proxifyMedia(url: string): URL {
+  // only for testing
+  return new URL(url);
+
+  // when dialect integrates the media proxy
   const baseUrl = new URL(url);
   if (shouldIgnoreProxy(baseUrl)) {
     return baseUrl;
   }
-  const proxifiedUrl = new URL(`${proxyUrl!}/image`);
+  const proxifiedUrl = new URL(`${proxyUrl!}/media`);
   proxifiedUrl.searchParams.set('url', url);
   return proxifiedUrl;
 }
+
+// export function proxifyImage(url: string): URL {
+//   const baseUrl = new URL(url);
+//   if (shouldIgnoreProxy(baseUrl)) {
+//     return baseUrl;
+//   }
+//   const proxifiedUrl = new URL(`${proxyUrl!}/image`);
+//   proxifiedUrl.searchParams.set('url', url);
+//   return proxifiedUrl;
+// }
 
 function shouldIgnoreProxy(url: URL): boolean {
   if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
